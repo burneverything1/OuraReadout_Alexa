@@ -2,7 +2,7 @@ import ask_sdk_core.utils as ask_utils
 from ask_sdk_core.dispatch_components import AbstractRequestHandler, AbstractExceptionHandler
 from ask_sdk_core.handler_input import HandlerInput
 
-#from main.py import Oura_PAT
+import oura
 
 # Add a new intent handler class here!
 # You must implement can_handle() and handle()
@@ -13,7 +13,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
         return ask_utils.is_request_type("LaunchRequest")(handler_input)
 
     def handle(self, handler_input):
-        speak_output = 'Welcome to the Replexa skill! Modify this template and make something super cool!'
+        speak_output = 'Welcome to Oura Ring Stats. Ask me to get your Ring Stats!'
 
         return (
             handler_input.response_builder
@@ -21,23 +21,6 @@ class LaunchRequestHandler(AbstractRequestHandler):
                 .ask(speak_output)
                 .response
         )
-
-
-class HelloWorldIntentHandler(AbstractRequestHandler):
-  """Handler for Hello World Intent."""
-  def can_handle(self, handler_input):
-    print('checking if we can handle')
-    return ask_utils.is_intent_name("HelloWorldIntent")(handler_input)
-
-  def handle(self, handler_input):
-    speak_output = "Hello World!"
-
-    return (
-      handler_input.response_builder
-          .speak(speak_output)
-          .response
-    )
-
 
 class HelpIntentHandler(AbstractRequestHandler):
     """Handler for Help Intent."""
@@ -102,16 +85,23 @@ class IntentReflectorHandler(AbstractRequestHandler):
                 .response
         )
 
-class GetOuraStats(AbstractRequestHandler):
+class GetOuraRingStatsHandler(AbstractRequestHandler):
   """Handler for the get oura intent"""
 
-    # def can_handle(self, handler_input):
-      #return ask_utils.is_intent_name("GetOuraSleep")(handler_input)
+  def can_handle(self, handler_input):
+    return ask_utils.is_intent_name("GetOuraRingStats")(handler_input)
 
-    #def handle(self, handler_input):
-      
+  def handle(self, handler_input):
+    scores = oura.get_all_scores()
+    all_score_str = scores["sleep"] + scores["activity"] + scores["readiness"]
 
+    print(all_score_str)
 
+    return (
+      handler_input.response_builder
+        .speak(all_score_str)
+        .response
+    )
 
 class CatchAllExceptionHandler(AbstractExceptionHandler):
     """Generic error handling to capture any syntax or routing errors. If you receive an error

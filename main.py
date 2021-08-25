@@ -13,14 +13,12 @@ sb = SkillBuilder()
 sb.add_request_handler(intents.LaunchRequestHandler())
 sb.add_request_handler(intents.HelpIntentHandler())
 sb.add_request_handler(intents.CancelOrStopIntentHandler())
-sb.add_request_handler(intents.HelloWorldIntentHandler())
 sb.add_request_handler(intents.SessionEndedRequestHandler())
-sb.add_request_handler(intents.GetOuraStats())
+sb.add_request_handler(intents.GetOuraRingStatsHandler())
 sb.add_request_handler(intents.IntentReflectorHandler()) # Register this intent last!
 
 app = Flask(__name__)
 skill_id = 'amzn1.ask.skill.21168df6-6607-4181-a8cb-9c202e36a40e'
-Oura_PAT = 'VXF4W6JLKPQUKTYKEYW3JFCL4UKKGHQN'
 
 skill_adapter = SkillAdapter(
   skill=sb.create(), 
@@ -33,7 +31,10 @@ def invoke_skill():
 
 @app.route("/ouratest", methods=["GET"])
 def ouratest():
-  sleepscore = oura.get_sleep_score()
-  return f'sleepscore is: {sleepscore}'
+  scores = oura.get_all_scores()
+  return f'''<p>{scores["sleep"]}<p>
+    <p>{scores["activity"]}<p>
+    <p>{scores["readiness"]}<p>
+  '''
 
 app.run('0.0.0.0', port=443)
