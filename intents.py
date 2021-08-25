@@ -2,6 +2,7 @@ import ask_sdk_core.utils as ask_utils
 from ask_sdk_core.dispatch_components import AbstractRequestHandler, AbstractExceptionHandler
 from ask_sdk_core.handler_input import HandlerInput
 
+#from main.py import Oura_PAT
 
 # Add a new intent handler class here!
 # You must implement can_handle() and handle()
@@ -104,11 +105,12 @@ class IntentReflectorHandler(AbstractRequestHandler):
 class GetOuraStats(AbstractRequestHandler):
   """Handler for the get oura intent"""
 
-    def can_handle(self, handler_input):
-      return ask_utils.is_intent_name("GetOuraStats")(handler_input)
+    # def can_handle(self, handler_input):
+      #return ask_utils.is_intent_name("GetOuraSleep")(handler_input)
 
-    def handle(self, handler_input):
+    #def handle(self, handler_input):
       
+
 
 
 class CatchAllExceptionHandler(AbstractExceptionHandler):
