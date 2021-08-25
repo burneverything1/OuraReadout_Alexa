@@ -95,8 +95,6 @@ class GetOuraRingStatsHandler(AbstractRequestHandler):
     scores = oura.get_all_scores()
     all_score_str = scores["sleep"] + scores["activity"] + scores["readiness"]
 
-    print(all_score_str)
-
     return (
       handler_input.response_builder
         .speak(all_score_str)
