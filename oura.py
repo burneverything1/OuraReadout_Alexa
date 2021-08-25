@@ -40,15 +40,17 @@ def get_all_scores():
 
   def winner(current, avg):
     if current > avg:
-      return 'better'
+      return 'better than'
     elif avg > current:
-      return 'worse'
+      return 'worse than'
+    elif avg == current:
+      return 'same as'
 
-  sleep_str = f'Sleep score is: {sleep_stats["score"]}, {winner(sleep_stats["score"], sleep_stats["3_avg"])} than the three day average of: {sleep_stats["3_avg"]}. '
+  sleep_str = f'Sleep score is: {sleep_stats["score"]}, {winner(sleep_stats["score"], sleep_stats["3_avg"])} the three day average of: {sleep_stats["3_avg"]}. '
 
-  activity_str = f'Activity score is: {activity_stats["score"]}, {winner(activity_stats["score"], activity_stats["3_avg"])} than the three day average of: {activity_stats["3_avg"]}. '
+  activity_str = f'Activity score is: {activity_stats["score"]}, {winner(activity_stats["score"], activity_stats["3_avg"])} the three day average of: {activity_stats["3_avg"]}. '
 
-  readiness_str = f'Readiness score is: {readiness_stats["score"]}, {winner(readiness_stats["score"], readiness_stats["3_avg"])} than the three day average of: {readiness_stats["3_avg"]}. '
+  readiness_str = f'Readiness score is: {readiness_stats["score"]}, {winner(readiness_stats["score"], readiness_stats["3_avg"])} the three day average of: {readiness_stats["3_avg"]}. '
 
   return {'sleep': sleep_str,
     'activity': activity_str,
