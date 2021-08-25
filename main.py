@@ -2,7 +2,7 @@ from flask import Flask
 from ask_sdk_core.skill_builder import SkillBuilder
 from flask_ask_sdk.skill_adapter import SkillAdapter
 import intents
-import requests
+import oura
 
 
 # Register the intents with the SkillBuilder. Intents are defined in intents.py.
@@ -32,13 +32,8 @@ def invoke_skill():
     return skill_adapter.dispatch_request()
 
 @app.route("/ouratest", methods=["GET"])
-def test_oura():
-  payload={'access_token': 'VXF4W6JLKPQUKTYKEYW3JFCL4UKKGHQN'}
-  response = requests.get('https://api.ouraring.com/v1/sleep', params=payload)
-  app.logger.info(response.content)
-  app.logger.info(response.url)
-  print(response.content)
-  print(response.url)
-  return "ouratest"
+def ouratest():
+  sleepscore = oura.get_sleep_score()
+  return f'sleepscore is: {sleepscore}'
 
 app.run('0.0.0.0', port=443)
