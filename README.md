@@ -5,6 +5,9 @@ This uses the Oura Ring API to get the latest Sleep, Activity, and Readiness sco
 
 Checkout what is read out by Alexa with this test request here: https://ourareadoutalexa.burneverything1.repl.co/ouratest
 
+### For Your Use
+If you'd like to use this for yourself, replace 'skill_id' in main.py with the Alexa Skill Id and the 'access_token' in oura.py with your Oura Ring PAT ('Personal Access Token').
+
 ### Alexa Commands
 "oura ring"
 "get my ring stats"
